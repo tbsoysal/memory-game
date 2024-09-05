@@ -20,7 +20,7 @@ body {
 }
 
 .card {
-  border: 1px solid rgba(0,0,0,0.3);
+  border: 1px solid #fff;
   perspective: 1000px;
   aspect-ratio: 1/1;
   cursor: pointer;
@@ -35,7 +35,7 @@ body {
   transform-style: preserve-3d;
 }
 
-.card:hover .card-inner {
+.card.open .card-inner {
   transform: rotateY(180deg);
 }
 
