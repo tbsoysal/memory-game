@@ -10,14 +10,14 @@ export default class Game {
   }
 
   generateCards() {
-    const values = ['../assets/arı.png',
-                    '../assets/yonca.png',
-                    '../assets/civciv.png',
-                    '../assets/köpek.png',
-                    '../assets/ejderha.png',
-                    '../assets/hamster.png',
-                    '../assets/unicorn.png',
-                    '../assets/flamingo.png'];
+    const values = ['./assets/arı.png',
+                    './assets/yonca.png',
+                    './assets/civciv.png',
+                    './assets/köpek.png',
+                    './assets/ejderha.png',
+                    './assets/hamster.png',
+                    './assets/unicorn.png',
+                    './assets/flamingo.png'];
     const cardValues = [...values, ...values];
     this.shuffle(cardValues);
 
@@ -33,30 +33,32 @@ export default class Game {
     }
   }
 
-  flipCard(index) {
+  flipCard(cardElement, index) {
     if (this.flippedCards.length === 2 || this.cards[index].flipped) return;
 
     this.cards[index].flipped = true;
-    this.flippedCards.push(index);
-
+    this.flippedCards.push({cardElement, index});
+    cardElement.classList.add('open');
     if (this.flippedCards.length === 2) {
       this.checkMatch();
     }
   }
 
   checkMatch() {
-    const [firstIndex, secondIndex] = this.flippedCards;
-    const firstCard = this.cards[firstIndex];
-    const secondCard = this.cards[secondIndex];
+    const [firstCard, secondCard] = this.flippedCards;
+    const first = this.cards[firstCard.index];
+    const second = this.cards[secondCard.index];
 
-    if (firstCard.value === secondCard.value) {
-      firstCard.matched = true;
-      secondCard.matched = true;
+    if (first.value === second.value) {
+      first.matched = true;
+      second.matched = true;
       this.matchedPairs++;
     } else {
       setTimeout(() => {
-        firstCard.flipped = false;
-        secondCard.flipped = false;
+        first.flipped = false;
+        second.flipped = false;
+        firstCard.cardElement.classList.remove('open');
+        secondCard.cardElement.classList.remove('open');
       }, 1000);
     }
     

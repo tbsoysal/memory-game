@@ -6,10 +6,6 @@ const game = new Game(16);
 function createCardElement(card, index) {
   const cardElement = document.createElement('div');
   cardElement.classList.add('card');
-  if(card.flipped)
-    cardElement.classList.add('open');
-  else
-    cardElement.classList.remove('open');
   cardElement.innerHTML = `
         <div class="card-inner">
           <div class="card-front">
@@ -19,7 +15,7 @@ function createCardElement(card, index) {
           </div>
         </div>
 `
-  cardElement.addEventListener('click', () => handleCardClick(index));
+  cardElement.addEventListener('click', () => handleCardClick(card, cardElement,index));
   return cardElement;
 }
 
@@ -31,15 +27,14 @@ function renderBoard() {
   });
 }
 
-function handleCardClick(index) {
+function handleCardClick(card, cardElement, index) {
   if (game.isGameOver()) return;
   
-  game.flipCard(index);
-  renderBoard();
+  game.flipCard(cardElement, index);
 
   if (game.isGameOver()) {
     setTimeout(() => {
-      alert('Congratulations! You won!')
+      alert('Congratulations! You won!');
     }, 100);
   }
 }
