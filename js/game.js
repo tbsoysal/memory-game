@@ -59,10 +59,11 @@ export default class Game {
         second.flipped = false;
         firstCard.cardElement.classList.remove('open');
         secondCard.cardElement.classList.remove('open');
-      }, 1000);
+      }, 800);
     }
-    
-    this.flippedCards = [];
+    setTimeout(() => {
+      this.flippedCards = [];
+    }, 900);
   }
 
   isGameOver() {
